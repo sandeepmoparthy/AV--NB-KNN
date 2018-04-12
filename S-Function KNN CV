@@ -1,0 +1,16 @@
+def length(X, y):
+    empty_list = []
+    for n in range(1,10):
+        X_train, X_test, y_train, y_test = train_test_split(X, y)
+        from sklearn.neighbors import KNeighborsClassifier
+        from sklearn import metrics
+        knn = KNeighborsClassifier(n_neighbors=(n))
+        knn.fit(X_train, y_train)
+        y_pred_class = knn.predict(X_test)
+        from sklearn.model_selection import KFold
+        from sklearn.model_selection import cross_val_score
+        scores = cross_val_score(knn,X,y ,cv=5)
+        empty_list.append(metrics.accuracy_score(y_test, y_pred_class))
+        #empty_list.append(np.array(scores).mean())
+        #cv_list.append(np.array(scores).mean())
+    return empty_list
