@@ -2,8 +2,8 @@ def KNN(df,target):
     empty_list = []
     import pandas as pd
     import numpy as np
-#X = df
- #   y = target
+X = df
+y = target
     from sklearn.model_selection import train_test_split
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     from sklearn.neighbors import KNeighborsClassifier
