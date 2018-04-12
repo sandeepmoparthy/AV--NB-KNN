@@ -1,0 +1,48 @@
+import pandas as pd
+url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+col_names = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
+iris = pd.read_csv(url, header=None, names=col_names)
+
+from matplotlib.colors import ListedColormap
+cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
+
+iris["Species_number"] = iris.species.map({'Iris-setosa':0,'Iris-versicolor':1,'Iris-virginica':2 })
+
+#Import Library of Gaussian Naive Bayes model
+from sklearn.naive_bayes import GaussianNB
+import numpy as np
+
+#assigning predictor and target variables
+feature_cols = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width'] 
+X = iris[feature_cols]
+y = iris.Species_number
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+
+#Create a Gaussian Classifier
+model = GaussianNB()
+
+# Train the model using the training sets 
+model.fit(X_train, y_train)
+
+
+
+#Predict Output 
+y_pred_class= model.predict(X_test)
+
+ y_pred_class
+ 
+ 
+ from sklearn import metrics
+
+metrics.accuracy_score(y_test, y_pred_class)
+
+
+import nltk # needed for Naive-Bayes
+import numpy as np
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+scores = cross_val_score(model,X,y ,cv=5)
+np.array(scores).mean()
