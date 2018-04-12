@@ -1,0 +1,27 @@
+def NB(df,target):
+    empty_list = []
+    import pandas as pd
+    #Import Library of Gaussian Naive Bayes mode
+    from sklearn.naive_bayes import GaussianNB
+    import numpy as np
+#X = df
+ #   y = target
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    #Create a Gaussian Classifier
+    model = GaussianNB()
+    # Train the model using the training sets 
+    model.fit(X_train, y_train)
+    #Predict Output 
+    y_pred_class= model.predict(X_test)
+    from sklearn import metrics
+    metrics.accuracy_score(y_test, y_pred_class)
+    import nltk # needed for Naive-Bayes
+    import numpy as np
+    ##cross validation
+    from sklearn.model_selection import KFold
+    from sklearn.model_selection import cross_val_score
+    scores = cross_val_score(model,X,y ,cv=5)
+    ##np.array(scores).mean()
+    empty_list.append(np.array(scores).mean())
+    return empty_list
